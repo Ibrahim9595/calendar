@@ -29,8 +29,8 @@ export class AppComponent {
     },
     {
       name: 'startDay',
-      placeholder: 'اختر يوم المهمة ',
-      label: 'يوم المهمة',
+      placeholder: 'اختر يوم بداية المهمة ',
+      label: 'يوم بداية المهمة',
       errorMessage: 'هذا الحقل يجب ان يحتوي علي تاريخ اكبر من تاريخ اليوم',
       inputType: 'date',
       outputType: 'single',
@@ -44,13 +44,20 @@ export class AppComponent {
       }
     },
     {
-      name: 'startHour',
-      placeholder: 'اختر ساعة المهمة ',
-      label: 'توقيت المهمة بالساعات',
-      errorMessage: 'هذا الحقل اجباري',
-      inputType: 'time',
+      name: 'endDay',
+      placeholder: 'اختر يوم نهاية المهمة ',
+      label: 'يوم نهاية المهمة',
+      errorMessage: 'هذا الحقل يجب ان يحتوي علي تاريخ اكبر من تاريخ البداية',
+      inputType: 'date',
       outputType: 'single',
       validators: ['required'],
+      listner: (value: string, controls) => {
+        if (new Date(value).getTime() < new Date(controls.startDay.value).getTime()) {
+          controls.endDay.setErrors({ error: 'ivalidEndDay' });
+        } else {
+          controls.endDay.setErrors(null);
+        }
+      }
     },
     {
       name: 'color',
@@ -59,9 +66,23 @@ export class AppComponent {
       errorMessage: 'هذا الحقل اجباري',
       inputType: 'text',
       outputType: 'select',
-      options: [{key: 'red', value: 'مأمورية'}, {key: 'blue', value: 'مؤتمر'}],
+      options: [{ key: 'red', value: 'مأمورية' }, { key: 'blue', value: 'مؤتمر' }],
       validators: ['required'],
     },
+    {
+      name: 'officer',
+      placeholder: 'اختر منفذ المهمة',
+      label: 'منفذ المهمة',
+      errorMessage: 'هذا الحقل اجباري',
+      inputType: 'text',
+      outputType: 'select',
+      options: [
+        { key: '1', value: 'عميد/أحمد عبدالباقي' },
+        { key: '2', value: 'عقيد/خالد عبدالرحيم' },
+        { key: '1', value: 'عقيد/محمد كمال' },],
+      validators: ['required'],
+    },
+
   ];
 
   calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
@@ -82,14 +103,15 @@ export class AppComponent {
       .catch(err => alert('حدث خطأ في الخادم')).finally(() => alert('تمت العملية بنجاح'));
   }
 
-  saveForm(data: { title: string, startDay: string, startHour: string }) {
+  saveForm(data: { title: string, startDay: string, endDay: string }) {
     this.show = false;
     let promise: Promise<any> = null;
 
     if (!this.selectedValues)
       promise = this.service.create({
         ...data,
-        start: new Date(data.startDay + ' ' + data.startHour),
+        start: new Date(data.startDay),
+        end: new Date(data.endDay),
         id: Date.now() + Math.ceil(Math.random() * 500),
       })
     else
