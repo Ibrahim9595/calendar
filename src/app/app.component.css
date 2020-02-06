@@ -1,0 +1,67 @@
+.wrapper {
+    direction: rtl;
+}
+
+.modal {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog {
+    position: relative;
+    direction: rtl;
+    display: flex;
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    animation: enterance;
+    animation-duration: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.dialog .body {
+    width: 95%;
+    flex: 1;
+}
+
+@keyframes enterance {
+    from {transform: scale(0, 0)}
+    to {transform: scale(1, 1)}
+}
+
+.close-icon {
+    color: red;
+    float: right;
+    font-weight: bold;
+    position: fixed;
+    top: 12%;
+    right: 12%;
+    display: block;
+    cursor: pointer;
+}
+
+.close-icon:active {
+    opacity: 0.7;
+}
+
+.dialog .footer {
+    display: flex;
+    flex: 0;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 25px;
+}

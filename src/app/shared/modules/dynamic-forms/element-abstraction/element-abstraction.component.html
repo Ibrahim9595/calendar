@@ -1,0 +1,57 @@
+<div [formGroup]='formBuilder'>
+  <div *ngIf="el.outputType === 'single' && el.inputType !== 'switch'" class='form-item'>
+    <p class='label' *ngIf='el.label'>{{el.label}}</p>
+    <!-- disbled -->
+    <input *ngIf='el.isDisabled && el.inputType !== "textarea"' disabled [type]='el.inputType'
+      [placeholder]='el.placeholder' [value]="values ? values[el.name] || '' : ''">
+    <textarea *ngIf='el.isDisabled && el.inputType === "textarea"' disabled [placeholder]='el.placeholder'
+      [value]="values ? values[el.name] || '' : ''"></textarea>
+    <!-- enabled -->
+    <input *ngIf='!el.isDisabled && el.inputType !== "textarea"' [formControlName]='el.name' [type]='el.inputType'
+      [placeholder]='el.placeholder'
+      [class.error]='formBuilder.controls[el.name].invalid && formBuilder.controls[el.name].touched'>
+    <textarea *ngIf='!el.isDisabled && el.inputType === "textarea"' [formControlName]='el.name'
+      [placeholder]='el.placeholder'
+      [class.error]='formBuilder.controls[el.name].invalid && formBuilder.controls[el.name].touched'></textarea>
+  </div>
+
+  <div *ngIf="el.outputType === 'select'" class='form-item'>
+    <p class='label' *ngIf='el.label'>{{el.label}}</p>
+    <!-- disbled -->
+    <select *ngIf='el.isDisabled' disabled [value]="values ? values[el.name] || '' : ''">
+      <option disabled selected>{{el.placeholder}}</option>
+      <option *ngFor='let option of el.options' [value]="option.key">{{option.value}}</option>
+    </select>
+    <!-- enabled -->
+    <select *ngIf='!el.isDisabled' [formControlName]='el.name'
+      [class.error]='formBuilder.controls[el.name].invalid && formBuilder.controls[el.name].touched'>
+      <option disabled selected>{{el.placeholder}}</option>
+      <option *ngFor='let option of el.options' [value]="option.key">{{option.value}}</option>
+    </select>
+  </div>
+
+  <div *ngIf="el.outputType === 'radioGroup'" class='form-group'>
+    <p style='margin-inline-end: 10px'>{{el.placeholder}}</p>
+    <div *ngFor='let option of el.options'>
+      <label>{{option.value}}</label>
+      <!-- disabled -->
+      <input *ngIf='el.isDisabled' [value]='option.key' type='radio' disabled
+        [value]="values ? values[el.name] || '' : ''">
+      <!-- enabled -->
+      <input *ngIf='!el.isDisabled' [formControlName]='el.name' [value]='option.key' type='radio'>
+    </div>
+  </div>
+
+  <div *ngIf="el.inputType === 'switch'" class='form-group switch-wrapper'>
+    <label class="switch-label">{{el.placeholder}}</label>
+    <label class="switch">
+      <!-- disabled -->
+      <input *ngIf='el.isDisabled' type="checkbox" disabled [checked]="values ? values[el.name] || false : ''">
+      <!-- enabled -->
+      <input *ngIf='!el.isDisabled' type="checkbox" [formControlName]='el.name'>
+      <span class="slider round"></span>
+    </label>
+  </div>
+  <span *ngIf="formBuilder.controls[el.name]?.invalid && formBuilder.controls[el.name]?.touched"
+    class='error-message'>{{el.errorMessage}}</span>
+</div>

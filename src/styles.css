@@ -1,1 +1,76 @@
+/* Add application styles & imports to this file! */
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
+
+.fc-day-grid-event, .fc-event-container {
+  cursor: pointer;
+}
+
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/*scroll bar*/
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+.btn,
+.link {
+  border-radius: 15px;
+  margin: 5px 5px 5px 5px;
+  border: none;
+  padding: 7px 25px 7px 25px;
+  color: white;
+  outline: none;
+  cursor: pointer;
+}
+
+.link {
+  background-color: transparent;
+  color: #005398;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+}
+
+.btn:active,
+.link:active,
+.btn-icon:active {
+  opacity: 0.7;
+}
+
+
+.btn-red {
+    background-color: #e71c39;
+}
+  
+.btn-blue {
+    background-color: #008fcf;
+}
+  
+
+.center {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
+.title {
+  color: #3f51b5;
+}

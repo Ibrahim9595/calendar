@@ -1,0 +1,49 @@
+.buttons-center { 
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    widows: 150px;
+    height: 45px;
+}
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.array-input {
+    width: 100%;
+}
+
+.add-button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #005398;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    float: right;
+}
+
+.add-button:active {
+    opacity: 0.5;
+}
+
+.delete-button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    float: right;
+}
+
+.section-title {
+    color: #005398;
+    font-size: 18px;
+    font-weight: 600;
+}

@@ -1,0 +1,29 @@
+<div *ngFor='let el of form'>
+  <app-element-abstraction *ngIf="!(el.inputType === 'form' && el.outputType === 'array')" [el]='el'
+    [formBuilder]='formBuilder' [values]='values'></app-element-abstraction>
+  <div *ngIf="el.inputType === 'formArray' && el.outputType === 'array'" style="width: 95%; margin: auto;">
+    <p class="section-title">{{el.label}}</p>
+    <div *ngFor='let subGroup of getSubGroups(el).controls;let i = index' class="array-input">
+      <button (click)='removeEl(el, i)' class="delete-button">
+        <img src="assets/remove.svg" width="16" height="16">
+      </button>
+      <div>
+        <app-element-abstraction style="flex: 1" *ngFor='let subEl of el.scheme' [el]='subEl' [formBuilder]='subGroup'>
+        </app-element-abstraction>
+      </div>
+    </div>
+    <button class="add-button" (click)="pushEl(el)">
+      <img src="assets/add-blue.svg" alt="add" width="19" height="19">
+      {{el.placeholder}}
+    </button>
+  </div>
+  <div *ngIf="el.inputType === 'formGroup' && el.outputType === 'object'" style="width: 95%; margin: auto;">
+    <p class="section-title">{{el.label}}</p>
+    <app-element-abstraction *ngFor="let subEl of el.scheme" [el]='subEl' [formBuilder]="formBuilder.get(el.name)"
+      [values]='values ? values[el.name]: null'></app-element-abstraction>
+  </div>
+</div>
+<div class="buttons-center">
+  <button class='btn btn-blue button' [disabled]='formBuilder.invalid' (click)='saveForm()'>submit</button>
+  <!-- <button class='btn btn-red button' (click)='goBack()'>back</button> -->
+</div>
